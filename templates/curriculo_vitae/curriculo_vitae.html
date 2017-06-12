@@ -1,0 +1,823 @@
+{% extends 'curriculo_vitae/base.html' %}
+
+{% block title %}
+<title>Usuario</title>
+{% endblock %}
+
+{% block menu %}
+    <header>
+        <nav class="red darken-3">
+            <div class="nav-wrapper container">
+                <a href="#!" class="brand-logo">Curriculo Vitae</a>
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+
+                <ul class="right hide-on-med-and-down">
+                    <li>Usuario: {{ docente.cedula.nombre1 }} {{ docente.cedula.nombre2 }} {{ docente.cedula.apellido1 }} {{ docente.cedula.apellido2 }}</li>
+                    <li><a href="cerrar_sesion">Cerrar Sesión</a></li>
+                </ul>
+
+                <ul class="side-nav" id="mobile-demo">
+                    <li>
+                        Usuario: {{ docente.cedula.nombre1 }} {{ docente.cedula.nombre2 }} {{ docente.cedula.apellido1 }} {{ docente.cedula.apellido2 }}
+                    </li>
+                    <li>
+                        <a href="cerrar_sesion">Cerrar Sesión</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+{% endblock %}
+
+{% block contenido %}
+    <div CLASS="row center-align">
+        <h3>Informacion del Curriculo Vitae</h3>
+        <!-- <p>Los Campos Marcados con * son Obligatorios</p>-->
+    </div>
+    <div class="row">
+        <ul class="collapsible" data-collapsible="accordion">
+            <li>
+                <div class="collapsible-header"><span class="badge">{{ distincion|length }}</span><i class="material-icons">cake</i>Distinciones</div>
+                <div class="collapsible-body">
+                    {% if distincion and distincion|length > 0%}
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th>Nombre</th>
+                                    <th>Fecha</th>
+                                    <th>Entidad</th>
+                                    <th>Municipio</th>
+                                    <th>ambito</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for dis in distincion %}
+                                    <tr>
+                                        <td>{{ dis.tipo_distincion }}</td>
+                                        <td>{{ dis.nombre }}</td>
+                                        <td>{{ dis.fecha }}</td>
+                                        <td>{{ dis.entidad }}</td>
+                                        <td>{{ dis.municipio.nombre }}</td>
+                                        <td>{{ dis.ambito }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>No hay distinciones registradas</p>
+                    {% endif %}
+                    <div class="row center">
+                        <a href="javascript:add_distincion();" class="btn waves-effect waves-light" data-position="bottom" data-delay="50" data-tooltip="Registrar Distinción">
+                            Agregar<i class="material-icons right">add</i>
+                        </a>
+                    </div>
+
+                    <div id="add_distincion" class="modal">
+                        <div class="modal-content">
+                            <h5 class="center-align">Registro de Distinción</h5>
+                            <form class="col s12 l5 offset-l4" action="add_distincion" method="post">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <select id="tipo_distincion" name="tipo_distincion" required>
+                                            <option value="" disabled selected>Seleccione</option>
+                                            <option value="01" >Tipo 1</option>
+                                            <option value="02" >Tipo 2</option>
+                                            <option value="03" >Tipo 3</option>
+                                            <option value="04" >Tipo 4</option>
+                                        </select>
+                                        <label>Tipo de distinción *</label>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <input id="nombre_distincion" type="text" class="validate" required name="nombre_distincion" value="">
+                                        <label for="nombre_distincion">Nombre *</label>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <input id="entidad_distincion" type="text" class="validate" required name="entidad_distincion" value="">
+                                        <label for="entidad_distincion">Entidad *</label>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <input id="fecha_distincion" type="text" class="validate datepicker" required name="fecha_distincion" value="">
+                                        <label for="fecha_distincion">Fecha *</label>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <input id="ambito_distincion" type="text" class="validate" required name="ambito_distincion" value="">
+                                        <label for="ambito_distincion">Ambito *</label>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <select id="municipio_distincion" name="municipio_distincion" required>
+                                            <option value="" disabled selected>Seleccione</option>
+                                            {% for mun in municipio %}
+                                                <option value="{{ mun.id }}"> {{ mun.nombre }} ({{ mun.id_dpto.nombre }}) ({{ mun.id_dpto.id_pais.nombre }})</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label>Municipio *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <button class="btn waves-effect waves-light green" type="submit" >Guardar
+                                        <i class="material-icons right">save</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header"><span class="badge">{{ estudios|length }}</span><i class="material-icons">school</i>Estudios</div>
+                <div class="collapsible-body">
+                    {% if estudios and estudios|length > 0%}
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th>Titulo</th>
+                                    <th>Institución</th>
+                                    <th>Municipio</th>
+                                    <th>Semestres</th>
+                                    <th>Fecha Inicio</th>
+                                    <th>Fecha Titulo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for est in estudios %}
+                                    <tr>
+                                        <td>{{ est.tipo_formacion.descripcion }}</td>
+                                        <td>{{ est.titulo_obtenido }}</td>
+                                        <td>{{ est.institucion.nombre }}</td>
+                                        <td>{{ est.municipio.nombre }}</td>
+                                        <td>{{ est.semestres }}</td>
+                                        <td>{{ est.fecha_inicio }}</td>
+                                        <td>{{ est.fecha_titulo }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>No hay estudios registrados</p>
+                    {% endif %}
+                    <div class="row center">
+                        <a href="javascript:add_estudio();" class="btn waves-effect waves-light" data-position="bottom">
+                            Agregar<i class="material-icons right">add</i>
+                        </a>
+                    </div>
+
+                    <div id="add_estudio" class="modal">
+                        <div class="modal-content">
+                            <h5 class="center-align">Registro de Estudio</h5>
+                            <form class="col s12 l5 offset-l4" action="add_estudio" method="post">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <select id="tipo_formacion_estudio" name="tipo_formacion_estudio" required>
+                                            <option value="" disabled selected>Seleccione</option>
+                                            {% for tipo in tipo_formacion %}
+                                                <option value="{{ tipo.id }}"> {{ tipo.descripcion }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label>Tipo de Formación *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="titulo_estudio" type="text" class="validate" required name="titulo_estudio" value="">
+                                        <label for="titulo_estudio">Titulo Obtenido *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <select id="institucion_estudio" name="municipio_institucion_estudiodistincion" required>
+                                            <option value="" disabled selected>Seleccione</option>
+                                            {% for ins in institucion %}
+                                                <option value="{{ ins.id }}"> {{ ins.nombre }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label>Institución *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <select id="municipio_estudio" name="municipio_estudio" required>
+                                            <option value="" disabled selected>Seleccione</option>
+                                            {% for mun in municipio %}
+                                                <option value="{{ mun.id }}"> {{ mun.nombre }} ({{ mun.id_dpto.nombre }}) ({{ mun.id_dpto.id_pais.nombre }})</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label>Municipio *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="semestre_estudio" type="number" class="validate" required name="semestre_estudio" value="" minlength="1">
+                                        <label for="semestre_estudio">Semestres *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="fecha_inicio_estudio" type="text" class="validate datepicker" required name="fecha_inicio_estudio" value="">
+                                        <label for="fecha_inicio_estudio">Fecha Inicio *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="fecha_titulo_estudio" type="text" class="validate datepicker" required name="fecha_titulo_estudio" value="">
+                                        <label for="fecha_titulo_estudio">Fecha Fin *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <button class="btn waves-effect waves-light green" type="submit" >Guardar
+                                        <i class="material-icons right">save</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header"><span class="badge">{{ evento|length }}</span><i class="material-icons">record_voice_over</i>Eventos</div>
+                <div class="collapsible-body">
+                    {% if evento and evento|length > 0%}
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Fecha</th>
+                                    <th>Dirección</th>
+                                    <th>Lugar</th>
+                                    <th>Tipo Evento</th>
+                                    <th>Tipo Participacion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for eve in evento %}
+                                    <tr>
+                                        <td>{{ eve.nombre }}</td>
+                                        <td>{{ eve.fecha }}</td>
+                                        <td>{{ eve.direccion }}</td>
+                                        <td>{{ eve.lugar }}</td>
+                                        <td>{{ eve.tipo_evento.descripcion }}</td>
+                                        <td>{{ eve.tipo_parcipacion.descripcion }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>No hay eventos registrados</p>
+                    {% endif %}
+                    <div class="row center">
+                        <a href="javascript:add_evento();" class="btn waves-effect waves-light" data-position="bottom">
+                            Agregar<i class="material-icons right">add</i>
+                        </a>
+                    </div>
+
+                    <div class="modal">
+                        <div class="modal-content">
+                            <h5 class="center-align">Registro de Eventos</h5>
+                            <form class="col s12 l5 offset-l4" id="add_evento" action="add_evento" method="post">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="nombre_evento" type="text" class="validate" required name="nombre_evento" value="">
+                                        <label for="nombre_evento">Nombre del evento*</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="fecha_evento" type="text" class="validate datepicker" required name="fecha_evento" value="">
+                                        <label for="fecha_evento">Fecha del evento*</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="luger_evento" type="text" class="validate" required name="luger_evento" value="">
+                                        <label for="luger_evento">Lugar del evento*</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="direccion_evento" type="text" class="validate" required name="direccion_evento" value="">
+                                        <label for="direccion_evento">Dirección del evento*</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <select id="tipo_evento" name="tipo_evento" required>
+                                            <option value="" disabled selected>Seleccione</option>
+                                            {% for t_e in tipos_eventos %}
+                                                <option value="{{ t_e.id }}"> {{ t_e.descripcion }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label>Tipo de evento *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <select id="tipo_participacion_evento" name="tipo_participacion_evento" required>
+                                            <option value="" disabled selected>Seleccione</option>
+                                            {% for t_p in tipos_participacion %}
+                                                <option value="{{ t_p.id }}"> {{ t_p.descripcion }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label>Tipo de Participación al Evento *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <textarea id="descripcion_evento" name="descripcion_evento" class="materialize-textarea" data-length="120" required></textarea>
+                                        <label for="descripcion_evento">Descripción</label>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <button class="btn waves-effect waves-light green" type="submit" >Guardar
+                                        <i class="material-icons right">save</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header"><span class="badge">{{ experiencia|length }}</span><i class="material-icons">business</i>Experiencias</div>
+                <div class="collapsible-body">
+                    {% if experiencia and experiencia|length > 0 %}
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Empresa</th>
+                                    <th>Fechas</th>
+                                    <th>Cargo</th>
+                                    <th>Dirección</th>
+                                    <th>Telefono</th>
+                                    <th>Funciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for xp in experiencia %}
+                                    <tr>
+                                        <td>{{ xp.empresa }}</td>
+                                        <td>{{ xp.fecha_inicio }} hasta {{ xp.fecha_fin }}</td>
+                                        <td>{{ xp.cargo }}</td>
+                                        <td>{{ xp.direccion }}</td>
+                                        <td>{{ xp.telefono }}</td>
+                                        <td>{{ xp.funciones }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>No hay experiencias registradas</p>
+                    {% endif %}
+                    <div class="row center-align">
+                        <a href="javascript:add_experiencia();" class="btn waves-effect waves-light" name="action" onclick="">Agregar
+                            <i class="material-icons right">add</i>
+                        </a>
+                    </div>
+                    <div class="modal">
+                        <div class="modal-content">
+                            <h5 class="center-align">Registrar Experiencias</h5>
+                            <form class="col s12 l5 offset-l4" action="add_experiencia" method="post" id="add_experiencia">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="epresa_esperiencia" required name="epresa_esperiencia" type="text">
+                                        <label for="epresa_esperiencia">Empresa *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="fecha_inicio_experiencia" type="text" class="datepicker" required name="fecha_inicio_experiencia" value="">
+                                        <label for="fecha_inicio_experiencia">Fecha de Inicio*</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="fecha_fin_experiencia" type="text" class="datepicker" required name="fecha_fin_experiencia" value="">
+                                        <label for="fecha_fin_experiencia">Fecha Fin *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="cargo_experiencia" required name="cargo_experiencia" type="text">
+                                        <label for="cargo_experiencia">Cargo *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="direccion_experiencia" required name="direccion_experiencia" type="text">
+                                        <label for="direccion_experiencia">Dirección *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="telefono_experiencia" required name="telefono_experiencia" type="text">
+                                        <label for="telefono_experiencia">Telfono *</label>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <textarea id="funciones_experiencia" name="funciones_experiencia" class="materialize-textarea" data-length="500" required></textarea>
+                                        <label for="funciones_experiencia">Funciones</label>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <button class="btn waves-effect waves-light green" type="submit" >Guardar
+                                            <i class="material-icons right">save</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header"><span class="badge">{{ continua|length }}</span><i class="material-icons">school</i>Formación Continua</div>
+                <div class="collapsible-body">
+                    {% if continua and continua|length > 0%}
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tipo de Formación</th>
+                                    <th>Institución</th>
+                                    <th>Municipio</th>
+                                    <th>Fecha Inicio</th>
+                                    <th>Fecha Terminación</th>
+                                    <th>Fecha Titulo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for con in continua %}
+                                    <tr>
+                                        <td>{{ con.tipo_continua.descripcion }}</td>
+                                        <td>{{ con.institucion.nombre }}</td>
+                                        <td>{{ con.municipio.nombre }}</td>
+                                        <td>{{ con.fecha_inicio }}</td>
+                                        <td>{{ con.fecha_terminacion}}</td>
+                                        <td>{{ con.fecha_titulo }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>No hay formaciones continuas registradas</p>
+                    {% endif %}
+                    <div class="row center-align">
+                        <a href="javascript:add_continua();" class="btn waves-effect waves-light" name="action" onclick="">Agregar
+                            <i class="material-icons right">add</i>
+                        </a>
+                    </div>
+                    <div class="modal">
+                        <div class="modal-content">
+                            <h5 class="center-align">Registro de Formación Continua</h5>
+                            <form class="col s12 l5 offset-l4" action="add_continua" method="post" id="add_continua">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <select id="tipo_formacion_continua" name="tipo_formacion_continua" required>
+                                            <option value="" disabled selected>Seleccione</option>
+                                            {% for t_f in tipos_continua %}
+                                                <option value="{{ t_f.id }}"> {{ t_f.descripcion }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label>Tipo de formación continua *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <select id="institucion_continua" name="institucion_continua" required>
+                                            <option value="" disabled selected>Seleccione</option>
+                                            {% for ins in institucion %}
+                                                <option value="{{ ins.id }}"> {{ ins.nombre }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label>Institución *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <select id="municipio_estudio" name="municipio_estudio" required>
+                                            <option value="" disabled selected>Seleccione</option>
+                                            {% for mun in municipio %}
+                                                <option value="{{ mun.id }}"> {{ mun.nombre }} ({{ mun.id_dpto.nombre }}) ({{ mun.id_dpto.id_pais.nombre }})</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label>Municipio *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="intencidad_continua" required name="intencidad_continua" type="text" maxlength="2">
+                                        <label for="intencidad_continua">Intencidad *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="fecha_inicio_continua" type="text" class="datepicker" required name="fecha_inicio_continua" value="">
+                                        <label for="fecha_inicio_continua">Fecha de Inicio *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="fecha_terminacion_continua" type="text" class="datepicker" required name="fecha_terminacion_continua" value="">
+                                        <label for="fecha_terminacion_continua">Fecha de Terminacion *</label>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <input id="fecha_titulo_continua" type="text" class="datepicker" required name="fecha_titulo_continua" value="">
+                                        <label for="fecha_titulo_continua">Fecha de Titulo *</label>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <button class="btn waves-effect waves-light green" type="submit" >Guardar
+                                            <i class="material-icons right">save</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header"><span class="badge">{{ idiomas|length }}</span><i class="material-icons">language</i>Idiomas</div>
+                <div class="collapsible-body">
+                    {% if idiomas and idiomas|length > 0%}
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Idioma</th>
+                                    <th>Nivel</th>
+                                    <th>Lectura</th>
+                                    <th>Escritura</th>
+                                    <th>Conversación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for idi in idiomas %}
+                                    <tr>
+                                        <td>{{ idi.idioma.descripcion }}</td>
+                                        <td>{{ idi.nivel }}</td>
+                                        <td>{{ idi.lectura }}</td>
+                                        <td>{{ idi.escritura }}</td>
+                                        <td>{{ idi.conversacion }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>No hay idiomas registrados</p>
+                    {% endif %}
+                    <div class="row center-align">
+                        <a href="javascript:add_idioma();" class="btn waves-effect waves-light" name="action">Agregar
+                            <i class="material-icons right">add</i>
+                        </a>
+                    </div>
+
+                    <div class="modal">
+                        <div class="modal-content">
+                            <h5 class="center-align">Registro de Idioma</h5>
+                            <form class="col s12 l5 offset-l4" action="add_idioma" method="post" id="add_idioma">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <select id="tipo_idioma" name="tipo_idioma" required>
+                                            <option value="" disabled selected>Seleccione</option>
+                                            {% for t_f in tipos_idiomas %}
+                                                <option value="{{ t_f.id }}"> {{ t_f.descripcion }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label for="tipo_idioma">Idioma *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="nivel_idioma" required name="nivel_idioma" type="text" maxlength="1">
+                                        <label for="nivel_idioma">Nivel *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="lectura_idioma" required name="lectura_idioma" type="text" maxlength="1">
+                                        <label for="lectura_idioma">Nivel *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="escritura_idioma" required name="escritura_idioma" type="text" maxlength="1">
+                                        <label for="escritura_idioma">Nivel *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="conversacion_idioma" required name="conversacion_idioma" type="text" maxlength="1">
+                                        <label for="conversacion_idioma">Nivel *</label>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <button class="btn waves-effect waves-light green" type="submit" >Guardar
+                                            <i class="material-icons right">save</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header"><span class="badge">{{ investigacion|length }}</span><i class="material-icons">find_in_page</i>Investigaciones</div>
+                <div class="collapsible-body">
+                    {% if investigacion and investigacion|length > 0%}
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th>Nombre</th>
+                                    <th>Fecha</th>
+                                    <th>Descripción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for inve in investigacion %}
+                                    <tr>
+                                        <td>{{ inve.nombre }}</td>
+                                        <td>{{ inve.fecha }}</td>
+                                        <td>{{ inve.tipo_investigacion.descripcion }}</td>
+                                        <td>{{ inve.descripcion }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>No hay Investicaciones registradas</p>
+                    {% endif %}
+                    <div class="row center-align">
+                        <a href="javascript:add_investigacion();" class="btn waves-effect waves-light" name="action" onclick="">Agregar
+                            <i class="material-icons right">add</i>
+                        </a>
+                    </div>
+                    <div class="modal">
+                        <div class="modal-content">
+                            <h5 class="center-align">Registro de Investigación</h5>
+                            <form class="col s12 l5 offset-l4" action="add_investigacion" method="post" id="add_investigacion">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <select id="tipo_invesigaciones" name="tipo_invesigaciones" required>
+                                            <option value="" disabled selected>Seleccione</option>
+                                            {% for t_i in tipo_investigaciones %}
+                                                <option value="{{ t_i.id }}"> {{ t_i.descripcion }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label for="tipo_invesigaciones">Tipo de Investigación *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="nombre_investigacion" required name="nombre_investigacion" type="text" maxlength="30">
+                                        <label for="nombre_investigacion">Nombre *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="fecha_investigacion" type="text" class="datepicker" required name="fecha_investigacion" value="">
+                                        <label for="fecha_investigacion">Fecha de Investigación *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <textarea id="descripcion_investigacion" name="descripcion_investigacion" class="materialize-textarea" data-length="500" required></textarea>
+                                        <label for="descripcion_investigacion">Descripción *</label>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <button class="btn waves-effect waves-light green" type="submit" >Guardar
+                                            <i class="material-icons right">save</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header"><span class="badge">{{ publicaciones|length }}</span><i class="material-icons">library_books</i>Publicaciones</div>
+                <div class="collapsible-body">
+                    {% if publicaciones and publicaciones|length > 0%}
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th>Nombre</th>
+                                    <th>Fecha</th>
+                                    <th>Idioma</th>
+                                    <th>Divulgación</th>
+                                    <th>Sitio Web</th>
+                                    <th>ISBN</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for pub in publicaciones %}
+                                    <tr>
+                                        <td>{{ pub.tipo_publicacion.descripcion }}</td>
+                                        <td>{{ pub.nombre }}</td>
+                                        <td>{{ pub.fecha }}</td>
+                                        <td>{{ pub.idioma.descripcion }}</td>
+                                        <td>{{ pub.divulgacion }}</td>
+                                        <td>{{ pub.sitio_web }}</td>
+                                        <td>{{ pub.isbn }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p>No hay publicaciones registradas</p>
+                    {% endif %}
+                    <div class="row center-align">
+                        <a href="javascript:add_publicacion();" class="btn waves-effect waves-light" name="action">Agregar
+                            <i class="material-icons right">add</i>
+                        </a>
+                    </div>
+                    <div class="modal">
+                        <div class="modal-content">
+                        <h5 class="center-align">Registro de Publicaciones</h5>
+                            <form class="col s12 l5 offset-l4" action="add_publicacion" method="post" id="add_publicacion">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <select id="tipo_publicacion" name="tipo_publicacion" required>
+                                            <option value="" disabled selected>Seleccione</option>
+                                            {% for t_i in tipo_publicacion %}
+                                                <option value="{{ t_i.id }}"> {{ t_i.descripcion }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label for="tipo_publicacion">Tipo de Publicación *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="nombre_publicacion" required name="nombre_publicacion" type="text" maxlength="100">
+                                        <label for="nombre_publicacion">Nombre *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="fecha_publicacion" type="text" class="datepicker" required name="fecha_publicacion" value="">
+                                        <label for="fecha_publicacion">Fecha de Publicación *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <select id="idioma_publicacion" name="idioma_publicacion" required>
+                                            <option value="" disabled selected>Seleccione</option>
+                                            {% for t_f in tipos_idiomas %}
+                                                <option value="{{ t_f.id }}"> {{ t_f.descripcion }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label for="idioma_publicacion">Idioma *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="divulgacion_publicacion" required name="divulgacion_publicacion" type="text" maxlength="30">
+                                        <label for="divulgacion_publicacion">Divulgación *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="sitio_web_publicacion" required name="sitio_web_publicacion" type="text" maxlength="50">
+                                        <label for="sitio_web_publicacion">Sitio Web *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="revista_publicacion" required name="revista_publicacion" type="text" maxlength="50">
+                                        <label for="revista_publicacion">Revista *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="periodico_publicacion" required name="periodico_publicacion" type="text" maxlength="50">
+                                        <label for="periodico_publicacion">Periodico *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="volumen_publicacion" required name="volumen_publicacion" type="number" >
+                                        <label for="volumen_publicacion">Volumen *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="editorial_publicacion" required name="editorial_publicacion" type="text" maxlength="30">
+                                        <label for="editorial_publicacion">Editorial *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="isbn_publicacion" required name="isbn_publicacion" type="text" maxlength="20">
+                                        <label for="isbn_publicacion">ISBN *</label>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <textarea id="descripcion_publicacion" name="descripcion_publicacion" class="materialize-textarea" data-length="500" required></textarea>
+                                        <label for="descripcion_publicacion">Descripción *</label>
+                                    </div>
+
+                                    <div class="input-field col s12">
+                                        <button class="btn waves-effect waves-light green" type="submit" >Guardar
+                                            <i class="material-icons right">save</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+
+
+
+{% block init %}
+    {% if msg %}
+        $('.tooltipped').tooltip({delay: 100});
+        Materialize.toast('{{ msg }}', 4000)
+    {% endif %}
+    $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 10, // Creates a dropdown of 15 years to control year
+        format: 'yyyy-mm-dd'
+    });
+    $('select').material_select();
+    $('.tooltipped').tooltip({delay: 50});
+    $('.modal').modal();
+    $('textarea#descripcion_evento').characterCounter();
+
+
+{% endblock %}
+
+
+{% block script %}
+    function add_distincion(){
+        $('#add_distincion').modal('open');
+    }
+    function add_estudio(){
+        $('#add_estudio').modal('open');
+    }
+    function add_evento(){
+        $('#add_evento').modal('open');
+    }
+    function add_experiencia(){
+        $('#add_experiencia').modal('open');
+    }
+    function add_continua(){
+        $('#add_continua').modal('open');
+    }
+    function add_idioma(){
+        $('#add_idioma').modal('open');
+    }
+    function add_investigacion(){
+        $('#add_investigacion').modal('open');
+    }
+    function add_publicacion(){
+        $('#add_publicacion').modal('open');
+    }
+
+{% endblock %}

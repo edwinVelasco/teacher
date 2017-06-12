@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+
+    {% endblock %}
+    <link type="image/x-icon" rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+    <link href="{% static 'css/material-icons.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    {% block menu %}
+
+    {% endblock %}
+
+    <main>
+        <div class="container">
+            {% block contenido %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <!--
+
+    <footer class="page-footer blue lighten-1">
+          <div class="footer-copyright blue">
+            <div class="container">
+            2017 © Copyright
+                <div class="right">
+                    <a class="grey-text text-lighten-4" href="http://ufps.edu.co">
+                        Universidad Francisco de Paula Santander
+                    </a>
+                </div>
+            </div>
+          </div>
+    </footer>
+    -->
+    <script type="text/javascript" src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+    <script src="{% static 'js/materialize.min.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+            $(".button-collapse").sideNav();
+            $(".button-collapse").collapsible();
+
+
+            {% block init %}
+
+            {% endblock %}
+        });
+
+        {% block script %}
+
+        {% endblock %}
+    </script>
+</body>
+</html>
