@@ -25,13 +25,10 @@ def login(request):
         except Docente.DoesNotExist:
             request.session['msg'] = 'codigo de docente no registrado'
             return HttpResponseRedirect('/')
-        #return render(request, 'curriculo_vitae/buscar_docente_admin.html', {'user': request.POST['user']})
     elif 'user' in request.session and request.method == 'GET':
         return HttpResponseRedirect('curriculo_vitae')
     else:
         return HttpResponseRedirect('/')
-    #return render(request, 'curriculo_vitae/buscar_docente_admin.html', {'user': request.session['user'], 'msg': msg})
-    #return render(request, 'curriculo_vitae/buscar_docente_admin.html', {'user': request.session['user']})
 
 
 def cerrar_sesion(request):
@@ -186,3 +183,155 @@ def curriculo_vitae(request):
         except Docente.DoesNotExist:
             request.session['msg'] = 'El codigo no se encuentra registrado'
             return HttpResponseRedirect('cerrar_sesion')
+
+
+def add_distincion(request):
+    if request.method == 'POST':
+        distincion = Distincion()
+        distincion.cod_docente_id = request.session['user']
+        distincion.usuario_registro = request.session['user']
+        distincion.tipo_distincion = request.POST['tipo_distincion']
+        distincion.nombre = request.POST['nombre_distincion']
+        distincion.entidad = request.POST['entidad_distincion']
+        distincion.fecha = request.POST['fecha_distincion']
+        distincion.ambito = request.POST['ambito_distincion']
+        distincion.municipio_id = request.POST['municipio_distincion']
+        distincion.save()
+        request.session['msg'] = 'Distincion Registrada Exitosamente'
+        return HttpResponse('ok')
+    else:
+        HttpResponseRedirect('/')
+
+
+def add_estudio(request):
+    if request.method == 'POST':
+        estudio = Estudio()
+        estudio.cod_docente_id = request.session['user']
+        estudio.usuario_registro = request.session['user']
+        estudio.tipo_formacion_id = request.POST['tipo_formacion_estudio']
+        estudio.titulo_obtenido = request.POST['titulo_estudio']
+        estudio.institucion_id = request.POST['institucion_estudio']
+        estudio.municipio_id = request.POST['municipio_estudio']
+        estudio.semestres = request.POST['semestre_estudio']
+        estudio.fecha_inicio = request.POST['fecha_inicio_estudio']
+        estudio.fecha_titulo = request.POST['fecha_titulo_estudio']
+        estudio.save()
+        request.session['msg'] = 'Estudio Registrado Exitosamente'
+        return HttpResponse('ok')
+    else:
+        HttpResponseRedirect('/')
+
+
+def add_evento(request):
+    if request.method == 'POST':
+        evento = Evento()
+        evento.cod_docente_id = request.session['user']
+        evento.usuario_registro = request.session['user']
+        evento.nombre = request.POST['nombre_evento']
+        evento.fecha = request.POST['fecha_evento']
+        evento.lugar = request.POST['luger_evento']
+        evento.direccion = request.POST['direccion_evento']
+        evento.tipo_evento_id = request.POST['tipo_evento']
+        evento.tipo_parcipacion_id = request.POST['tipo_participacion_evento']
+        evento.descripcion = request.POST['descripcion_evento']
+        evento.save()
+        request.session['msg'] = 'Parcicipacion de Evento Registrado Exitosamente'
+        return HttpResponse('ok')
+    else:
+        HttpResponseRedirect('/')
+
+
+def add_experiencia(request):
+    if request.method == 'POST':
+        experiencia = Experiencia()
+        experiencia.cod_docente_id = request.session['user']
+        experiencia.usuario_registro = request.session['user']
+        experiencia.empresa = request.POST['epresa_esperiencia']
+        experiencia.fecha_inicio = request.POST['fecha_inicio_experiencia']
+        experiencia.fecha_fin = request.POST['fecha_fin_experiencia']
+        experiencia.cargo = request.POST['cargo_experiencia']
+        experiencia.direccion = request.POST['direccion_experiencia']
+        experiencia.telefono = request.POST['telefono_experiencia']
+        experiencia.funciones = request.POST['funciones_experiencia']
+        experiencia.save()
+        request.session['msg'] = 'Experiencia Laboral Registrada Exitosamente'
+        return HttpResponse('ok')
+    else:
+        HttpResponseRedirect('/')
+
+
+def add_continua(request):
+    if request.method == 'POST':
+        continua = Formacion_Continua()
+        continua.cod_docente_id = request.session['user']
+        continua.usuario_registro = request.session['user']
+        continua.tipo_continua_id = request.POST['tipo_formacion_continua']
+        continua.institucion_id = request.POST['institucion_continua']
+        continua.municipio_id = request.POST['municipio_estudio']
+        continua.intencidad = request.POST['intencidad_continua']
+        continua.fecha_inicio = request.POST['fecha_inicio_continua']
+        continua.fecha_terminacion = request.POST['fecha_terminacion_continua']
+        continua.fecha_titulo = request.POST['fecha_titulo_continua']
+        continua.descuento = request.POST['descuento_continua']
+        continua.save()
+        request.session['msg'] = 'Formacion Continua Registrada Exitosamente'
+        return HttpResponse('ok')
+    else:
+        HttpResponseRedirect('/')
+
+
+def add_idioma(request):
+    if request.method == 'POST':
+        idioma = Docente_Idioma()
+        idioma.cod_docente_id = request.session['user']
+        idioma.usuario_registro = request.session['user']
+        idioma.idioma_id = request.POST['tipo_idioma']
+        idioma.nivel = request.POST['nivel_idioma']
+        idioma.lectura = request.POST['lectura_idioma']
+        idioma.escritura = request.POST['escritura_idioma']
+        idioma.conversacion = request.POST['conversacion_idioma']
+        idioma.save()
+        request.session['msg'] = 'Idioma Registrado Exitosamente'
+        return HttpResponse('ok')
+    else:
+        HttpResponseRedirect('/')
+
+
+def add_investigacion(request):
+    if request.method == 'POST':
+        investigacion = Investigacion()
+        investigacion.cod_docente_id = request.session['user']
+        investigacion.usuario_registro = request.session['user']
+        investigacion.tipo_investigacion_id = request.POST['tipo_invesigaciones']
+        investigacion.nombre = request.POST['nombre_investigacion']
+        investigacion.fecha = request.POST['fecha_investigacion']
+        investigacion.descripcion = request.POST['descripcion_investigacion']
+        investigacion.save()
+        request.session['msg'] = 'Investigacion Registrada Exitosamente'
+        return HttpResponse('ok')
+    else:
+        HttpResponseRedirect('/')
+
+
+def add_publicacion(request):
+    if request.method == 'POST':
+        publicacion = Publicacion()
+        publicacion.cod_docente_id = request.session['user']
+        publicacion.usuario_registro = request.session['user']
+        publicacion.tipo_publicacion_id = request.POST['tipo_publicacion']
+        publicacion.nombre = request.POST['nombre_publicacion']
+        publicacion.fecha = request.POST['fecha_publicacion']
+        publicacion.idioma_id = request.POST['idioma_publicacion']
+        publicacion.divulgacion = request.POST['divulgacion_publicacion']
+        publicacion.sitio_web = request.POST['sitio_web_publicacion']
+        publicacion.revista = request.POST['revista_publicacion']
+        publicacion.periodico = request.POST['periodico_publicacion']
+        publicacion.volumen = request.POST['volumen_publicacion']
+        publicacion.editorial = request.POST['editorial_publicacion']
+        publicacion.isbn = request.POST['isbn_publicacion']
+        publicacion.descripcion = request.POST['descripcion_publicacion']
+        publicacion.save()
+        request.session['msg'] = 'Publicacion Registrada Exitosamente'
+        return HttpResponse('ok')
+    else:
+        HttpResponseRedirect('/')

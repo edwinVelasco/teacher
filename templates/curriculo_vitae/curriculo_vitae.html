@@ -73,10 +73,10 @@
                         </a>
                     </div>
 
-                    <div id="add_distincion" class="modal">
+                    <div class="modal">
                         <div class="modal-content">
                             <h5 class="center-align">Registro de Distinción</h5>
-                            <form class="col s12 l5 offset-l4" action="add_distincion" method="post">
+                            <form class="col s12 l5 offset-l4" action="add_distincion" id="add_distincion" method="post">
                                 {% csrf_token %}
                                 <div class="row">
                                     <div class="input-field col s12">
@@ -106,7 +106,7 @@
                                     </div>
 
                                     <div class="input-field col s12">
-                                        <input id="ambito_distincion" type="text" class="validate" required name="ambito_distincion" value="">
+                                        <input id="ambito_distincion" type="text" class="validate" required name="ambito_distincion" value="" maxlength="1">
                                         <label for="ambito_distincion">Ambito *</label>
                                     </div>
 
@@ -170,10 +170,10 @@
                         </a>
                     </div>
 
-                    <div id="add_estudio" class="modal">
+                    <div class="modal">
                         <div class="modal-content">
                             <h5 class="center-align">Registro de Estudio</h5>
-                            <form class="col s12 l5 offset-l4" action="add_estudio" method="post">
+                            <form class="col s12 l5 offset-l4" action="add_estudio"  id="add_estudio" method="post">
                                 {% csrf_token %}
                                 <div class="row">
                                     <div class="input-field col s12">
@@ -190,7 +190,7 @@
                                         <label for="titulo_estudio">Titulo Obtenido *</label>
                                     </div>
                                     <div class="input-field col s12">
-                                        <select id="institucion_estudio" name="municipio_institucion_estudiodistincion" required>
+                                        <select id="institucion_estudio" name="institucion_estudio" required>
                                             <option value="" disabled selected>Seleccione</option>
                                             {% for ins in institucion %}
                                                 <option value="{{ ins.id }}"> {{ ins.nombre }}</option>
@@ -419,6 +419,7 @@
                                     <th>Fecha Inicio</th>
                                     <th>Fecha Terminación</th>
                                     <th>Fecha Titulo</th>
+                                    <th>% de descuento</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -430,6 +431,7 @@
                                         <td>{{ con.fecha_inicio }}</td>
                                         <td>{{ con.fecha_terminacion}}</td>
                                         <td>{{ con.fecha_titulo }}</td>
+                                        <td>{{ con.descuento }}</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
@@ -491,6 +493,10 @@
                                     <div class="input-field col s12">
                                         <input id="fecha_titulo_continua" type="text" class="datepicker" required name="fecha_titulo_continua" value="">
                                         <label for="fecha_titulo_continua">Fecha de Titulo *</label>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="descuento_continua" required name="descuento_continua" type="number" max="100">
+                                        <label for="descuento_continua">Porcentaje de Descuento *</label>
                                     </div>
 
                                     <div class="input-field col s12">
@@ -795,6 +801,154 @@
 
 
 {% block script %}
+
+    $("#add_publicacion").submit( function(event){
+            $.ajax({
+                type: 'post',
+                url: $("#add_publicacion").attr('action'),
+                data: $("#add_publicacion").serialize(),
+                success: function (data) {
+                    window.location='curriculo_vitae';
+                },
+                error: function(data) {
+                    console.log(JSON.parse(data));
+                }
+
+            });
+            event.preventDefault();
+            return false;
+
+        });
+
+    $("#add_investigacion").submit( function(event){
+            $.ajax({
+                type: 'post',
+                url: $("#add_investigacion").attr('action'),
+                data: $("#add_investigacion").serialize(),
+                success: function (data) {
+                    window.location='curriculo_vitae';
+                },
+                error: function(data) {
+                    console.log(JSON.parse(data));
+                }
+
+            });
+            event.preventDefault();
+            return false;
+
+        });
+
+    $("#add_idioma").submit( function(event){
+            $.ajax({
+                type: 'post',
+                url: $("#add_idioma").attr('action'),
+                data: $("#add_idioma").serialize(),
+                success: function (data) {
+                    window.location='curriculo_vitae';
+                },
+                error: function(data) {
+                    console.log(JSON.parse(data));
+                }
+
+            });
+            event.preventDefault();
+            return false;
+
+        });
+
+    $("#add_continua").submit( function(event){
+            $.ajax({
+                type: 'post',
+                url: $("#add_continua").attr('action'),
+                data: $("#add_continua").serialize(),
+                success: function (data) {
+                    window.location='curriculo_vitae';
+                },
+                error: function(data) {
+                    console.log(JSON.parse(data));
+                }
+
+            });
+            event.preventDefault();
+            return false;
+
+        });
+
+    $("#add_experiencia").submit( function(event){
+            $.ajax({
+                type: 'post',
+                url: $("#add_experiencia").attr('action'),
+                data: $("#add_experiencia").serialize(),
+                success: function (data) {
+                    window.location='curriculo_vitae';
+                },
+                error: function(data) {
+                    console.log(JSON.parse(data));
+                }
+
+            });
+            event.preventDefault();
+            return false;
+
+        });
+
+    $("#add_evento").submit( function(event){
+            $.ajax({
+                type: 'post',
+                url: $("#add_evento").attr('action'),
+                data: $("#add_evento").serialize(),
+                success: function (data) {
+                    window.location='curriculo_vitae';
+
+                },
+                error: function(data) {
+                    console.log(JSON.parse(data));
+                }
+
+            });
+            event.preventDefault();
+            return false;
+
+        });
+
+    $("#add_estudio").submit( function(event){
+            $.ajax({
+                type: 'post',
+                url: $("#add_estudio").attr('action'),
+                data: $("#add_estudio").serialize(),
+                success: function (data) {
+                    window.location='curriculo_vitae';
+
+                },
+                error: function(data) {
+                    console.log(JSON.parse(data));
+                }
+
+            });
+            event.preventDefault();
+            return false;
+
+        });
+
+    $("#add_distincion").submit( function(event){
+            $.ajax({
+                type: 'post',
+                url: $("#add_distincion").attr('action'),
+                data: $("#add_distincion").serialize(),
+                success: function (data) {
+                    window.location='curriculo_vitae';
+
+                },
+                error: function(data) {
+                    console.log(JSON.parse(data));
+                }
+
+            });
+            event.preventDefault();
+            return false;
+
+        });
+
     function add_distincion(){
         $('#add_distincion').modal('open');
     }

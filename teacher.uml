@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DjangoModelDependency</ID>
+  <OriginalElement>#teacher</OriginalElement>
+  <nodes>
+    <node x="311.5" y="1159.5">curriculo_vitae.models.Institucion</node>
+    <node x="2340.8541666666665" y="1488.0">curriculo_vitae.models.Investigacion</node>
+    <node x="1529.8541666666667" y="1476.5">curriculo_vitae.models.Docente_Idioma</node>
+    <node x="1018.5692204301077" y="1159.5">curriculo_vitae.models.Tipo_Publicacion</node>
+    <node x="1863.598790322581" y="1102.0">curriculo_vitae.models.Docente</node>
+    <node x="980.8541666666667" y="1396.0">curriculo_vitae.models.Publicacion</node>
+    <node x="1382.598790322581" y="1159.5">curriculo_vitae.models.Idioma</node>
+    <node x="2468.6041666666665" y="1159.5">curriculo_vitae.models.Tipo_Investigacion</node>
+    <node x="515.75" y="1453.5">curriculo_vitae.models.Formacion_Continua</node>
+    <node x="2729.8541666666665" y="1465.0">curriculo_vitae.models.Distincion</node>
+    <node x="3514.860887096774" y="332.5">curriculo_vitae.models.Tipo_Documento</node>
+    <node x="576.5" y="1159.5">curriculo_vitae.models.Tipo_Continua</node>
+    <node x="3237.860887096774" y="332.5">curriculo_vitae.models.Estado_Civil</node>
+    <node x="1894.1875" y="0.0">curriculo_vitae.models.Pais</node>
+    <node x="3157.360887096774" y="1159.5">curriculo_vitae.models.Tipo_Participacion</node>
+    <node x="25.5" y="1453.5">curriculo_vitae.models.Estudio</node>
+    <node x="1929.8541666666667" y="1442.0">curriculo_vitae.models.Experiencia</node>
+    <node x="3109.8541666666665" y="1453.5">curriculo_vitae.models.Evento</node>
+    <node x="10.5" y="1159.5">curriculo_vitae.models.Tipo_Formacion</node>
+    <node x="3012.2291666666665" y="493.0">curriculo_vitae.models.Persona</node>
+    <node x="1819.4442204301076" y="321.0">curriculo_vitae.models.Municipio</node>
+    <node x="1801.4442204301076" y="149.0">curriculo_vitae.models.Departamento</node>
+    <node x="3472.360887096774" y="1159.5">curriculo_vitae.models.Tipo_Evento</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="curriculo_vitae.models.Estudio" target="curriculo_vitae.models.Municipio">
+      <point x="-160.875" y="-153.0" />
+      <point x="79.125" y="1376.0" />
+      <point x="0.0" y="1376.0" />
+      <point x="0.0" y="463.0" />
+      <point x="1849.1942204301076" y="463.0" />
+      <point x="-89.25" y="61.0" />
+    </edge>
+    <edge source="curriculo_vitae.models.Publicacion" target="curriculo_vitae.models.Idioma">
+      <point x="0.0" y="-210.5" />
+      <point x="1245.3541666666667" y="1336.0" />
+      <point x="1439.348790322581" y="1336.0" />
+      <point x="-56.75" y="49.5" />
+    </edge>
+    <edge source="curriculo_vitae.models.Evento" target="curriculo_vitae.models.Tipo_Evento">
+      <point x="143.0" y="-153.0" />
+      <point x="3467.3541666666665" y="1376.0" />
+      <point x="3601.860887096774" y="1376.0" />
+      <point x="0.0" y="49.5" />
+    </edge>
+    <edge source="curriculo_vitae.models.Formacion_Continua" target="curriculo_vitae.models.Institucion">
+      <point x="-160.875" y="-153.0" />
+      <point x="569.375" y="1336.0" />
+      <point x="495.25" y="1336.0" />
+      <point x="61.25" y="49.5" />
+    </edge>
+    <edge source="curriculo_vitae.models.Evento" target="curriculo_vitae.models.Tipo_Participacion">
+      <point x="0.0" y="-153.0" />
+      <point x="3324.3541666666665" y="1376.0" />
+      <point x="3304.860887096774" y="1376.0" />
+      <point x="0.0" y="49.5" />
+    </edge>
+    <edge source="curriculo_vitae.models.Formacion_Continua" target="curriculo_vitae.models.Municipio">
+      <point x="53.625" y="-153.0" />
+      <point x="783.875" y="1336.0" />
+      <point x="858.0" y="1336.0" />
+      <point x="858.0" y="473.0" />
+      <point x="1908.6942204301076" y="473.0" />
+      <point x="-29.75" y="61.0" />
+    </edge>
+    <edge source="curriculo_vitae.models.Experiencia" target="curriculo_vitae.models.Docente">
+      <point x="0.0" y="-164.5" />
+      <point x="2125.354166666667" y="1376.0" />
+      <point x="2052.036290322581" y="1376.0" />
+      <point x="20.9375" y="107.0" />
+    </edge>
+    <edge source="curriculo_vitae.models.Distincion" target="curriculo_vitae.models.Docente">
+      <point x="-90.0" y="-141.5" />
+      <point x="2819.8541666666665" y="1356.0" />
+      <point x="2135.786290322581" y="1356.0" />
+      <point x="104.6875" y="107.0" />
+    </edge>
+    <edge source="curriculo_vitae.models.Persona" target="curriculo_vitae.models.Pais">
+      <point x="-76.5" y="-279.5" />
+      <point x="3241.7291666666665" y="473.0" />
+      <point x="3227.360887096774" y="473.0" />
+      <point x="3227.360887096774" y="124.0" />
+      <point x="2100.4375" y="124.0" />
+      <point x="68.75" y="49.5" />
+    </edge>
+    <edge source="curriculo_vitae.models.Persona" target="curriculo_vitae.models.Tipo_Documento">
+      <point x="229.5" y="-279.5" />
+      <point x="3547.7291666666665" y="473.0" />
+      <point x="3659.360887096774" y="473.0" />
+      <point x="0.0" y="49.5" />
+    </edge>
+    <edge source="curriculo_vitae.models.Departamento" target="curriculo_vitae.models.Pais">
+      <point x="0.0" y="-61.0" />
+      <point x="1938.4442204301076" y="124.0" />
+      <point x="1962.9375" y="124.0" />
+      <point x="-68.75" y="49.5" />
+    </edge>
+    <edge source="curriculo_vitae.models.Docente_Idioma" target="curriculo_vitae.models.Idioma">
+      <point x="-95.0" y="-130.0" />
+      <point x="1624.8541666666667" y="1336.0" />
+      <point x="1552.848790322581" y="1336.0" />
+      <point x="56.75" y="49.5" />
+    </edge>
+    <edge source="curriculo_vitae.models.Estudio" target="curriculo_vitae.models.Institucion">
+      <point x="53.625" y="-153.0" />
+      <point x="293.625" y="1376.0" />
+      <point x="372.75" y="1376.0" />
+      <point x="-61.25" y="49.5" />
+    </edge>
+    <edge source="curriculo_vitae.models.Investigacion" target="curriculo_vitae.models.Tipo_Investigacion">
+      <point x="92.25" y="-118.5" />
+      <point x="0.0" y="49.5" />
+    </edge>
+    <edge source="curriculo_vitae.models.Docente" target="curriculo_vitae.models.Persona">
+      <point x="0.0" y="-107.0" />
+      <point x="2031.098790322581" y="1077.0" />
+      <point x="3318.2291666666665" y="1077.0" />
+      <point x="0.0" y="279.5" />
+    </edge>
+    <edge source="curriculo_vitae.models.Evento" target="curriculo_vitae.models.Docente">
+      <point x="-143.0" y="-153.0" />
+      <point x="3181.3541666666665" y="1346.0" />
+      <point x="2177.661290322581" y="1346.0" />
+      <point x="146.5625" y="107.0" />
+    </edge>
+    <edge source="curriculo_vitae.models.Persona" target="curriculo_vitae.models.Municipio">
+      <point x="-229.5" y="-279.5" />
+      <point x="3088.7291666666665" y="463.0" />
+      <point x="2027.6942204301076" y="463.0" />
+      <point x="89.25" y="61.0" />
+    </edge>
+    <edge source="curriculo_vitae.models.Docente_Idioma" target="curriculo_vitae.models.Docente">
+      <point x="95.0" y="-130.0" />
+      <point x="1814.8541666666667" y="1376.0" />
+      <point x="2010.161290322581" y="1376.0" />
+      <point x="-20.9375" y="107.0" />
+    </edge>
+    <edge source="curriculo_vitae.models.Publicacion" target="curriculo_vitae.models.Docente">
+      <point x="176.33333333333326" y="-210.5" />
+      <point x="1421.6875" y="1366.0" />
+      <point x="1968.286290322581" y="1366.0" />
+      <point x="-62.8125" y="107.0" />
+    </edge>
+    <edge source="curriculo_vitae.models.Publicacion" target="curriculo_vitae.models.Tipo_Publicacion">
+      <point x="-176.33333333333326" y="-210.5" />
+      <point x="1069.0208333333335" y="1336.0" />
+      <point x="1161.0692204301076" y="1336.0" />
+      <point x="0.0" y="49.5" />
+    </edge>
+    <edge source="curriculo_vitae.models.Investigacion" target="curriculo_vitae.models.Docente">
+      <point x="-92.25" y="-118.5" />
+      <point x="2433.1041666666665" y="1366.0" />
+      <point x="2093.911290322581" y="1366.0" />
+      <point x="62.8125" y="107.0" />
+    </edge>
+    <edge source="curriculo_vitae.models.Estudio" target="curriculo_vitae.models.Docente">
+      <point x="160.875" y="-153.0" />
+      <point x="400.875" y="1346.0" />
+      <point x="1884.536290322581" y="1346.0" />
+      <point x="-146.5625" y="107.0" />
+    </edge>
+    <edge source="curriculo_vitae.models.Distincion" target="curriculo_vitae.models.Municipio">
+      <point x="89.99999999999989" y="-141.5" />
+      <point x="2999.8541666666665" y="473.0" />
+      <point x="1968.1942204301076" y="473.0" />
+      <point x="29.75" y="61.0" />
+    </edge>
+    <edge source="curriculo_vitae.models.Municipio" target="curriculo_vitae.models.Departamento">
+      <point x="0.0" y="-61.0" />
+      <point x="0.0" y="61.0" />
+    </edge>
+    <edge source="curriculo_vitae.models.Estudio" target="curriculo_vitae.models.Tipo_Formacion">
+      <point x="-53.625" y="-153.0" />
+      <point x="186.375" y="1376.0" />
+      <point x="151.0" y="1376.0" />
+      <point x="0.0" y="49.5" />
+    </edge>
+    <edge source="curriculo_vitae.models.Formacion_Continua" target="curriculo_vitae.models.Tipo_Continua">
+      <point x="-53.625" y="-153.0" />
+      <point x="676.625" y="1336.0" />
+      <point x="712.0" y="1336.0" />
+      <point x="0.0" y="49.5" />
+    </edge>
+    <edge source="curriculo_vitae.models.Persona" target="curriculo_vitae.models.Estado_Civil">
+      <point x="76.5" y="-279.5" />
+      <point x="3394.7291666666665" y="473.0" />
+      <point x="3366.360887096774" y="473.0" />
+      <point x="0.0" y="49.5" />
+    </edge>
+    <edge source="curriculo_vitae.models.Formacion_Continua" target="curriculo_vitae.models.Docente">
+      <point x="160.875" y="-153.0" />
+      <point x="891.125" y="1356.0" />
+      <point x="1926.411290322581" y="1356.0" />
+      <point x="-104.6875" y="107.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.3240062761506276" x="1902.0" y="908.5" />
+  <SelectedNodes>
+    <node>curriculo_vitae.models.Tipo_Evento</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+  </Categories>
+</Diagram>
+

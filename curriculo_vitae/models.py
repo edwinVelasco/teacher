@@ -164,10 +164,11 @@ class Investigacion(models.Model):
     fecha = models.DateField()
     tipo_investigacion = models.ForeignKey('Tipo_Investigacion')
     descripcion = models.CharField(max_length=500)
+
     fecha_registro = models.DateField(auto_now=True)
     usuario_registro = models.CharField(max_length=20)
     fecha_autenticacion = models.DateField(null=True)
-    estado = models.CharField(max_length=1)
+    estado = models.CharField(max_length=1, default='0')
 
     def __unicode__(self):
         return 'Nombre:  %s, Tipo de investigacion: %s, fecha: %s, Estado: %s' % (
@@ -186,7 +187,7 @@ class Distincion(models.Model):
     fecha_registro = models.DateField(auto_now=True)
     usuario_registro = models.CharField(max_length=20)
     fecha_autenticacion = models.DateField(null=True)
-    estado = models.CharField(max_length=1)
+    estado = models.CharField(max_length=1, default='0')
 
     def __unicode__(self):
         return 'Nombre:  %s, Tipo de distincion: %s, fecha: %s, Estado: %s' % (self.nombre, self.tipo_distincion,
@@ -224,7 +225,7 @@ class Experiencia(models.Model):
     fecha_registro = models.DateField(auto_now=True)
     usuario_registro = models.CharField(max_length=20)
     fecha_autenticacion = models.DateField(null=True)
-    estado = models.CharField(max_length=1)
+    estado = models.CharField(max_length=1, default='0')
     lugar = models.CharField(max_length=5)
 
     def __unicode__(self):
@@ -244,7 +245,7 @@ class Docente_Idioma(models.Model):
     fecha_registro = models.DateField(auto_now=True)
     usuario_registro = models.CharField(max_length=20)
     fecha_autenticacion = models.DateField(null=True)
-    estado = models.CharField(max_length=1)
+    estado = models.CharField(max_length=1, default='0')
 
     def __unicode__(self):
         return 'Idioma:  %s, nivel: %s, lectura:  %s, escritura: %s, conversacion: %s' % (self.idioma.descripcion,
@@ -265,7 +266,7 @@ class Estudio(models.Model):
     fecha_registro = models.DateField(auto_now=True)
     usuario_registro = models.CharField(max_length=20)
     fecha_autenticacion = models.DateField(null=True)
-    estado = models.CharField(max_length=1)
+    estado = models.CharField(max_length=1, default='0')
 
     def __unicode__(self):
         return 'tipo formacion: %s  , titulo: %s, Institucion: %s ' % (self.tipo_formacion.descripcion,
@@ -284,7 +285,8 @@ class Formacion_Continua(models.Model):
     fecha_registro = models.DateField(auto_now=True)
     usuario_registro = models.CharField(max_length=20)
     fecha_autenticacion = models.DateField(null=True)
-    estado = models.CharField(max_length=1)
+    estado = models.CharField(max_length=1, default='0')
+    descuento = models.IntegerField()
 
     def __unicode__(self):
         return 'tipo continua: %s  , institucion: %s, municipio: %s ' % (self.tipo_continua.descripcion,
@@ -308,7 +310,7 @@ class Publicacion(models.Model):
     fecha_registro = models.DateField(auto_now=True)
     usuario_registro = models.CharField(max_length=20)
     fecha_autenticacion = models.DateField(null=True)
-    estado = models.CharField(max_length=1)
+    estado = models.CharField(max_length=1, default='0')
     descripcion = models.TextField(max_length=500)
 
     def __unicode__(self):
