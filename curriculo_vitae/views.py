@@ -9,6 +9,32 @@ def index(request):
 
 
 def buscar(request):
+    if 'docente' in request.session:
+        docente = Docente.objects.get(cod_docente=request.session['docente'])
+        publicaciones = Publicacion.objects.filter(cod_docente__cod_docente=request.session['docente'], estado='1')
+        estudios = Estudio.objects.filter(cod_docente__cod_docente=request.session['docente'], estado='1')
+        idiomas = Docente_Idioma.objects.filter(docente__cod_docente=request.session['docente'], estado='1')
+        continua = Formacion_Continua.objects.filter(cod_docente__cod_docente=request.session['docente'], estado='1')
+        distincion = Distincion.objects.filter(cod_docente__cod_docente=request.session['docente'], estado='1')
+        evento = Evento.objects.filter(cod_docente__cod_docente=request.session['docente'], estado='1')
+        experiencia = Experiencia.objects.filter(cod_docente__cod_docente=request.session['docente'], estado='1')
+        investigacion = Investigacion.objects.filter(cod_docente__cod_docente=request.session['docente'], estado='1')
+        del request.session['docente']
+
+        return render(request, 'curriculo_vitae/buscar_docente_invitado.html', {'publicaciones': publicaciones,
+                                                                                'estudios': estudios,
+                                                                                'idiomas': idiomas, 'continua': continua,
+                                                                                'distincion': distincion,
+                                                                                'evento': evento,
+                                                                                'experiencia': experiencia,
+                                                                                'investigacion': investigacion,
+                                                                                'docente': docente})
+    elif 'msg' in request.session:
+        msg = request.session['msg']
+        del request.session['msg']
+        return render(request, 'curriculo_vitae/buscar_docente_invitado.html', {'msg': msg})
+
+
     return render(request, 'curriculo_vitae/buscar_docente_invitado.html', {})
 
 
@@ -37,8 +63,8 @@ def cerrar_sesion(request):
 
 
 def get_docentes(request):
-    docentes = Docente.objects.all().order_by('cedula__apellido1')
-    data = serializers.serialize('json', docentes, fields=('cod_docente'))
+    personas = Persona.objects.all().order_by('apellido1')
+    data = serializers.serialize('json', personas, fields=('nombre1', 'nombre2', 'apellido1', 'apellido2'))
     return HttpResponse(data, content_type='application/json')
 
 
@@ -283,7 +309,7 @@ def add_continua(request):
 def add_idioma(request):
     if request.method == 'POST':
         idioma = Docente_Idioma()
-        idioma.cod_docente_id = request.session['user']
+        idioma.docente_id = request.session['user']
         idioma.usuario_registro = request.session['user']
         idioma.idioma_id = request.POST['tipo_idioma']
         idioma.nivel = request.POST['nivel_idioma']
@@ -335,3 +361,26 @@ def add_publicacion(request):
         return HttpResponse('ok')
     else:
         HttpResponseRedirect('/')
+
+
+def docente_invitado(request):
+    if request.method == 'POST':
+        nombre = request.POST['nombre'].split(' ')
+        if len(nombre) == 4:
+            docentes = Docente.objects.filter(cedula__nombre1=nombre[0], cedula__nombre2=nombre[1],
+                                              cedula__apellido1=nombre[2], cedula__apellido2=nombre[3])
+        elif len(nombre) == 3:
+            docentes = Docente.objects.filter(cedula__nombre1=nombre[0], cedula__nombre2=nombre[1],
+                                              cedula__apellido1=nombre[2])
+        elif len(nombre) == 2:
+            docentes = Docente.objects.filter(cedula__nombre1=nombre[0], cedula__apellido1=nombre[2])
+        else:
+            request.session['msg'] = 'Docente no encontrado'
+            return HttpResponseRedirect('buscar')
+
+        if len(docentes) > 0:
+            request.session['docente'] = docentes[0].cod_docente
+            return HttpResponseRedirect('buscar')
+        else:
+            request.session['msg'] = 'Docente no encontrado'
+            return HttpResponseRedirect('buscar')

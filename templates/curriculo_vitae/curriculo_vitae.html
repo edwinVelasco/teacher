@@ -34,13 +34,58 @@
         <h3>Informacion del Curriculo Vitae</h3>
         <!-- <p>Los Campos Marcados con * son Obligatorios</p>-->
     </div>
+    <div class="row ">
+            <h5 class="center-align">Datos Personales</h5>
+            <table class="centered col s8 offset-s2">
+                <thead>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Nombre</th>
+                        <th>Tarjeta Prof.</th>
+                        <th>Correo Per.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ docente.cod_docente }}</td>
+                        <td>{{ docente.cedula.nombre1 }} {{ docente.cedula.nombre2 }} {{ docente.cedula.apellido1 }} {{ docente.cedula.apellido2 }}</td>
+                        <td>{{ docente.cedula.tarjeta_profesional }}</td>
+                        <td>{{ docente.cedula.correo_oper }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    <div class="row">
+            <h5 class="center-align">Datos de Contacto</h5>
+            <table class="centered col s10 offset-s1">
+                <thead>
+                    <tr>
+                        <th>Correo Inst.</th>
+                        <th>Telefonos</th>
+                        <th>Twitter</th>
+                        <th>Facebook</th>
+                        <th>Sitio WEB</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ docente.cedula.correo_inst }}</td>
+                        <td>{{ docente.cedula.telefono1 }}, {{ docente.cedula.telefono2 }}</td>
+                        <td>{{ docente.cedula.twitter }}</td>
+                        <td>{{ docente.cedula.facebook }}</td>
+                        <td>{{ docente.cedula.sitioweb }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     <div class="row">
         <ul class="collapsible" data-collapsible="accordion">
             <li>
                 <div class="collapsible-header"><span class="badge">{{ distincion|length }}</span><i class="material-icons">cake</i>Distinciones</div>
                 <div class="collapsible-body">
                     {% if distincion and distincion|length > 0%}
-                        <table>
+                        <table class="centered">
                             <thead>
                                 <tr>
                                     <th>Tipo</th>
@@ -135,7 +180,7 @@
                 <div class="collapsible-header"><span class="badge">{{ estudios|length }}</span><i class="material-icons">school</i>Estudios</div>
                 <div class="collapsible-body">
                     {% if estudios and estudios|length > 0%}
-                        <table>
+                        <table class="centered">
                             <thead>
                                 <tr>
                                     <th>Tipo</th>
@@ -234,7 +279,7 @@
                 <div class="collapsible-header"><span class="badge">{{ evento|length }}</span><i class="material-icons">record_voice_over</i>Eventos</div>
                 <div class="collapsible-body">
                     {% if evento and evento|length > 0%}
-                        <table>
+                        <table class="centered">
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
@@ -327,7 +372,7 @@
                 <div class="collapsible-header"><span class="badge">{{ experiencia|length }}</span><i class="material-icons">business</i>Experiencias</div>
                 <div class="collapsible-body">
                     {% if experiencia and experiencia|length > 0 %}
-                        <table>
+                        <table class="centered">
                             <thead>
                                 <tr>
                                     <th>Empresa</th>
@@ -410,7 +455,7 @@
                 <div class="collapsible-header"><span class="badge">{{ continua|length }}</span><i class="material-icons">school</i>Formación Continua</div>
                 <div class="collapsible-body">
                     {% if continua and continua|length > 0%}
-                        <table>
+                        <table class="centered">
                             <thead>
                                 <tr>
                                     <th>Tipo de Formación</th>
@@ -514,7 +559,7 @@
                 <div class="collapsible-header"><span class="badge">{{ idiomas|length }}</span><i class="material-icons">language</i>Idiomas</div>
                 <div class="collapsible-body">
                     {% if idiomas and idiomas|length > 0%}
-                        <table>
+                        <table class="centered">
                             <thead>
                                 <tr>
                                     <th>Idioma</th>
@@ -566,15 +611,15 @@
                                     </div>
                                     <div class="input-field col s12">
                                         <input id="lectura_idioma" required name="lectura_idioma" type="text" maxlength="1">
-                                        <label for="lectura_idioma">Nivel *</label>
+                                        <label for="lectura_idioma">Lectura *</label>
                                     </div>
                                     <div class="input-field col s12">
                                         <input id="escritura_idioma" required name="escritura_idioma" type="text" maxlength="1">
-                                        <label for="escritura_idioma">Nivel *</label>
+                                        <label for="escritura_idioma">Escritura *</label>
                                     </div>
                                     <div class="input-field col s12">
                                         <input id="conversacion_idioma" required name="conversacion_idioma" type="text" maxlength="1">
-                                        <label for="conversacion_idioma">Nivel *</label>
+                                        <label for="conversacion_idioma">Conversación *</label>
                                     </div>
 
                                     <div class="input-field col s12">
@@ -592,7 +637,7 @@
                 <div class="collapsible-header"><span class="badge">{{ investigacion|length }}</span><i class="material-icons">find_in_page</i>Investigaciones</div>
                 <div class="collapsible-body">
                     {% if investigacion and investigacion|length > 0%}
-                        <table>
+                        <table class="centered">
                             <thead>
                                 <tr>
                                     <th>Tipo</th>
@@ -664,7 +709,7 @@
                 <div class="collapsible-header"><span class="badge">{{ publicaciones|length }}</span><i class="material-icons">library_books</i>Publicaciones</div>
                 <div class="collapsible-body">
                     {% if publicaciones and publicaciones|length > 0%}
-                        <table>
+                        <table class="centered">
                             <thead>
                                 <tr>
                                     <th>Tipo</th>

@@ -134,8 +134,7 @@ class Persona(models.Model):
     sitioweb = models.CharField(max_length=30)
 
     def __unicode__(self):
-        return 'Cedula: %s Nombre: %s %s %s %s' % (self.cedula, self.nombre1, self.nombre2, self.apellido1,
-                                                   self.apellido2)
+        return 'Nombre: %s %s %s %s' % (self.nombre1, self.nombre2, self.apellido1, self.apellido2)
 
 
 class Docente(models.Model):
@@ -148,9 +147,7 @@ class Docente(models.Model):
     fecha_activacion = models.DateField(null=True)
 
     def __unicode__(self):
-        return 'cod: %s, Nombre: %s %s %s %s, Estado: %s' % (self.cod_docente, self.cedula.nombre1, self.cedula.nombre2,
-                                                             self.cedula.apellido1, self.cedula.apellido2,
-                                                             str(self.estado))
+        return 'cod: %s, %s' % (self.cod_docente, self.cedula)
 
     def comparar_clave(self, clave2):
         if self.clave == clave2:
@@ -171,9 +168,7 @@ class Investigacion(models.Model):
     estado = models.CharField(max_length=1, default='0')
 
     def __unicode__(self):
-        return 'Nombre:  %s, Tipo de investigacion: %s, fecha: %s, Estado: %s' % (
-            self.nombre, self.tipo_investigacion.descripcion,
-            str(self.fecha), self.estado)
+        return '%s inventigacion: %s' % (self.cod_docente, self.nombre)
 
 
 class Distincion(models.Model):
@@ -190,8 +185,7 @@ class Distincion(models.Model):
     estado = models.CharField(max_length=1, default='0')
 
     def __unicode__(self):
-        return 'Nombre:  %s, Tipo de distincion: %s, fecha: %s, Estado: %s' % (self.nombre, self.tipo_distincion,
-                                                                               str(self.fecha), self.estado)
+        return '%s, Distincion:  %s' % (self.cod_docente, self.nombre)
 
 
 class Evento(models.Model):
@@ -199,7 +193,7 @@ class Evento(models.Model):
     nombre = models.CharField(max_length=30)
     fecha = models.DateField()
     direccion = models.CharField(max_length=500)
-    lugar = models.CharField(max_length=5)
+    lugar = models.CharField(max_length=50)
     tipo_evento = models.ForeignKey('Tipo_Evento')
     tipo_parcipacion = models.ForeignKey('Tipo_Participacion')
     descripcion = models.CharField(max_length=500)
@@ -209,8 +203,7 @@ class Evento(models.Model):
     estado = models.CharField(max_length=1, default='0')
 
     def __unicode__(self):
-        return 'Nombre:  %s, Tipo de evento: %s, fecha: %s, Estado: %s' % (self.nombre, self.tipo_evento.descripcion,
-                                                                           str(self.fecha), self.estado)
+        return '%s, Evento:  %s' % (self.cod_docente, self.nombre)
 
 
 class Experiencia(models.Model):
@@ -229,7 +222,7 @@ class Experiencia(models.Model):
     lugar = models.CharField(max_length=5)
 
     def __unicode__(self):
-        return 'Empresa:  %s, cargo: %s' % (self.empresa, self.cargo)
+        return '%s, Empresa:  %s' % (self.cod_docente, self.empresa)
 
 
 class Docente_Idioma(models.Model):
@@ -248,10 +241,7 @@ class Docente_Idioma(models.Model):
     estado = models.CharField(max_length=1, default='0')
 
     def __unicode__(self):
-        return 'Idioma:  %s, nivel: %s, lectura:  %s, escritura: %s, conversacion: %s' % (self.idioma.descripcion,
-                                                                                          self.nivel, self.lectura,
-                                                                                          self.escritura,
-                                                                                          self.conversacion)
+        return '%s, Idioma:  %s' % (self.docente, self.idioma)
 
 
 class Estudio(models.Model):
@@ -269,8 +259,7 @@ class Estudio(models.Model):
     estado = models.CharField(max_length=1, default='0')
 
     def __unicode__(self):
-        return 'tipo formacion: %s  , titulo: %s, Institucion: %s ' % (self.tipo_formacion.descripcion,
-                                                                       self.titulo_obtenido, self.institucion)
+        return '%s, Titulo:  %s' % (self.cod_docente, self.titulo_obtenido)
 
 
 class Formacion_Continua(models.Model):
@@ -289,9 +278,7 @@ class Formacion_Continua(models.Model):
     descuento = models.IntegerField()
 
     def __unicode__(self):
-        return 'tipo continua: %s  , institucion: %s, municipio: %s ' % (self.tipo_continua.descripcion,
-                                                                         self.institucion.nombre,
-                                                                         self.municipio.nombre)
+        return '%s, Institucion:  %s' % (self.cod_docente, self.institucion)
 
 
 class Publicacion(models.Model):
@@ -314,5 +301,4 @@ class Publicacion(models.Model):
     descripcion = models.TextField(max_length=500)
 
     def __unicode__(self):
-        return 'tipo publicacion: %s  , nombre: %s, fecha: %s ' % (self.tipo_publicacion.descripcion, self.nombre,
-                                                                   self.fecha)
+        return '%s, Publicacion:  %s' % (self.cod_docente, self.nombre)

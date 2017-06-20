@@ -22,4 +22,9 @@ urlpatterns = [
     url(r'^add_idioma$', views.add_idioma),
     url(r'^add_investigacion$', views.add_investigacion),
     url(r'^add_publicacion$', views.add_publicacion),
+
+
+    url(r'^docente_invitado$', views.docente_invitado),
+
+
 ]

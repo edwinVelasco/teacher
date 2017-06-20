@@ -91,7 +91,7 @@ class Migration(migrations.Migration):
                 ('nombre', models.CharField(max_length=30)),
                 ('fecha', models.DateField()),
                 ('direccion', models.CharField(max_length=500)),
-                ('lugar', models.CharField(max_length=5)),
+                ('lugar', models.CharField(max_length=50)),
                 ('descripcion', models.CharField(max_length=500)),
                 ('fecha_registro', models.DateField(auto_now=True)),
                 ('usuario_registro', models.CharField(max_length=20)),

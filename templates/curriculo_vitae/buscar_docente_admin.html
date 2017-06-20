@@ -69,9 +69,11 @@
 
 
 {% block script %}
+    var data = {};
+
+
     function get_docentes(){
 
-        data = {};
         $.ajax({
             type: 'GET',
             url: 'get_docentes',
