@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="418a59b7-74eb-4d96-9cae-4bcb4e216032" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docentes.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -99,8 +100,8 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/teacher/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="59">
-              <caret line="72" column="0" lean-forward="false" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
+            <state relative-caret-position="314">
+              <caret line="133" column="0" lean-forward="true" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -529,7 +530,14 @@
       <option name="project" value="LOCAL" />
       <updated>1497962622530</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="se agrega el backup de la DB en postgres">
+      <created>1498226282421</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1498226282421</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView" selected-index="3">
@@ -613,7 +621,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="falta hacerle pruebas de los formularios de restro de curriculo vitae" />
     <MESSAGE value="terminacion del proyecto para sustentar" />
-    <option name="LAST_COMMIT_MESSAGE" value="terminacion del proyecto para sustentar" />
+    <MESSAGE value="se agrega el backup de la DB en postgres" />
+    <option name="LAST_COMMIT_MESSAGE" value="se agrega el backup de la DB en postgres" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1305,8 +1314,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/teacher/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="59">
-          <caret line="72" column="0" lean-forward="false" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
+        <state relative-caret-position="314">
+          <caret line="133" column="0" lean-forward="true" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
           <folding />
         </state>
       </provider>
